@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PadamDaily</string>
+    <string name="hint_origin">origin</string>
+    <string name="hint_destination">destination</string>
+    <string name="action_search">search</string>
+
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB4jwDOqU-0x3eX3veXmdKjG5OV_0BzFd0</string>
+</resources>
