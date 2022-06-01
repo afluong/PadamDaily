@@ -1,5 +1,6 @@
 package io.padam_exercise.padamdaily.screens
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
 import padam_exercise.padamdaily.R
@@ -29,14 +28,26 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
     }
 
     override fun updateMap(vararg latLngArgs: LatLng?) {
-        mMap?.let {
+        mMap?.let { map ->
             val builder = LatLngBounds.Builder()
             for (latLngArg in latLngArgs) {
                 builder.include(latLngArg!!)
             }
             val bounds = builder.build()
             animateMapCamera(bounds)
+            drawItinerary(map, latLngArgs)
         }
+    }
+
+    private fun drawItinerary(map: GoogleMap, latLngArgs: Array<out LatLng?>) {
+        val lines = with(PolylineOptions()) {
+            latLngArgs.forEach {
+                add(it)
+            }
+            geodesic(true)
+            color(Color.RED)
+        }
+        map.addPolyline(lines)
     }
 
     override fun updateMarker(markerType: MarkerType, suggestion: Suggestion) {
