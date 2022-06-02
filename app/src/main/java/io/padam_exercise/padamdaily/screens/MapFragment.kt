@@ -18,9 +18,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import io.padam_exercise.padamdaily.api.GoogleApiClient
 import io.padam_exercise.padamdaily.api.requests.Point
+import io.padam_exercise.padamdaily.api.requests.toLatLng
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import padam_exercise.padamdaily.R
 
 /**
@@ -30,10 +31,7 @@ import padam_exercise.padamdaily.R
 class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
 
     private var mMap: GoogleMap? = null
-
-    init {
-        apiCall()
-    }
+    private var points = arrayListOf<LatLng>()
 
     companion object {
         fun newInstance(): MapFragment = MapFragment()
@@ -47,20 +45,44 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
             }
             val bounds = builder.build()
             animateMapCamera(bounds)
-            drawItinerary(map, latLngArgs)
+            getItineraryPoints(latLngArgs) { travel ->
+                drawItinerary(map, travel)
+            }
         }
     }
 
-    private fun apiCall() {
-        lifecycleScope.launch {
-            val response = GoogleApiClient.API_SERVICE.getItinerary(
-                Point(48.8588897,2.320041),
-                Point(47.9027336,1.9086066)
-            )
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    Log.d("status API", it.status)
+    private fun getItineraryPoints(
+        latLngArgs: Array<out LatLng?>,
+        updateMap: (travel: Array<LatLng>) -> Unit
+    ) {
+        lifecycleScope.launch(Dispatchers.Default) {
+            try {
+                val departurePoint = latLngArgs[0]?.let {
+                    Point(it.latitude, it.longitude)
+                }!!
+                val arrivalPoint = latLngArgs[1]?.let {
+                    Point(it.latitude, it.longitude)
+                }!!
+                val response =
+                    GoogleApiClient.API_SERVICE.getItinerary(departurePoint, arrivalPoint)
+
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        Log.d("status API", it.status)
+                        points.clear()
+                        it.routes[0].legs[0].steps.forEach { step ->
+                            points.add(step.end_location.toLatLng())
+                        }
+                    }
+                } else {
+                    points.run {
+                        add(LatLng(departurePoint.lat, departurePoint.lng))
+                        add(LatLng(departurePoint.lat, departurePoint.lng))
+                    }
                 }
+                updateMap(points.toTypedArray())
+            } catch (error: Exception) {
+                Log.e("error API", "Api Call")
             }
         }
     }
@@ -87,6 +109,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
 
     override fun clearMap() {
         mMap?.clear()
+        points.clear()
     }
 
     override fun onCreateView(
