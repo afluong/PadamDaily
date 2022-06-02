@@ -1,6 +1,9 @@
 package io.padam_exercise.padamdaily.screens
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,7 +24,9 @@ import io.padam_exercise.padamdaily.api.requests.Point
 import io.padam_exercise.padamdaily.api.requests.toLatLng
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import padam_exercise.padamdaily.R
 
 /**
@@ -32,6 +37,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
 
     private var mMap: GoogleMap? = null
     private var points = arrayListOf<LatLng>()
+    private var distance = 0
+    private var time = 0
 
     companion object {
         fun newInstance(): MapFragment = MapFragment()
@@ -53,7 +60,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
 
     private fun getItineraryPoints(
         latLngArgs: Array<out LatLng?>,
-        updateMap: (travel: Array<LatLng>) -> Unit
+        validateTravel: (travel: Array<LatLng>) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.Default) {
             try {
@@ -70,8 +77,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
                     response.body()?.let {
                         Log.d("status API", it.status)
                         points.clear()
+                        distance = 0
+                        time = 0
                         it.routes[0].legs[0].steps.forEach { step ->
                             points.add(step.end_location.toLatLng())
+                            distance += step.distance.value
+                            time += step.duration.value
                         }
                     }
                 } else {
@@ -80,14 +91,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
                         add(LatLng(departurePoint.lat, departurePoint.lng))
                     }
                 }
-                updateMap(points.toTypedArray())
+                withContext(Dispatchers.Main) { validateTravel(points.toTypedArray()) }
             } catch (error: Exception) {
                 Log.e("error API", "Api Call")
             }
         }
     }
 
-    private fun drawItinerary(map: GoogleMap, latLngArgs: Array<out LatLng?>) {
+    private fun drawItinerary(map: GoogleMap, latLngArgs: Array<LatLng>) {
         val lines = with(PolylineOptions()) {
             latLngArgs.forEach {
                 add(it)
@@ -96,6 +107,23 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
             color(Color.RED)
         }
         map.addPolyline(lines)
+        popupTravel(latLngArgs[1])
+    }
+
+    private fun popupTravel(latLng: LatLng) {
+        AlertDialog.Builder(context).apply {
+            setTitle("temps: ${time.toDouble() / 60} h")
+            setMessage("distance: ${distance.toDouble() / 1000} km")
+            setPositiveButton("maps") { _, _ -> openGoogleMaps(latLng) }
+        }.show()
+    }
+
+    private fun openGoogleMaps(latLng: LatLng) {
+        val gmmIntentUri =
+            Uri.parse("google.navigation:q=${latLng.latitude},${latLng.longitude}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        startActivity(mapIntent)
     }
 
     override fun updateMarker(markerType: MarkerType, suggestion: Suggestion) {
