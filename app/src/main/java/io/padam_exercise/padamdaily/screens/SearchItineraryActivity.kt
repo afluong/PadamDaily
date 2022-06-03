@@ -74,7 +74,10 @@ class SearchItineraryActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSuggestionFromSelection(selection: String, suggestionList: ArrayList<Suggestion>): Suggestion {
+    private fun getSuggestionFromSelection(
+        selection: String,
+        suggestionList: ArrayList<Suggestion>
+    ): Suggestion {
         for (suggestion in suggestionList) {
             if (suggestion.name == selection) {
                 return suggestion

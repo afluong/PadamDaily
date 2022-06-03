@@ -28,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import padam_exercise.padamdaily.R
+import java.text.DecimalFormat
 
 /**
  * Map Fragment
@@ -112,7 +113,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
 
     private fun popupTravel(latLng: LatLng) {
         AlertDialog.Builder(context).apply {
-            setTitle("temps: ${time.toDouble() / 60} h")
+            setTitle("temps: ${DecimalFormat().format(time.toDouble() / 60)} h")
             setMessage("distance: ${distance.toDouble() / 1000} km")
             setPositiveButton("maps") { _, _ -> openGoogleMaps(latLng) }
         }.show()
