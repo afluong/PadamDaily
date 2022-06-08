@@ -119,6 +119,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
         }.show()
     }
 
+    private fun showResume() {
+        val resumeFragment = ResumeFragment()
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.cl_map, resumeFragment)
+            .commitAllowingStateLoss()
+    }
+
     private fun openGoogleMaps(latLng: LatLng) {
         val gmmIntentUri =
             Uri.parse("google.navigation:q=${latLng.latitude},${latLng.longitude}")

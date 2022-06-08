@@ -19,7 +19,7 @@ object GoogleApiClient {
         val logging = HttpLoggingInterceptor()
         OkHttpClient
             .Builder()
-            .addInterceptor(logging.setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(logging.setLevel(HttpLoggingInterceptor.Level.NONE))
             .build()
     }
 
