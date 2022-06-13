@@ -1,6 +1,11 @@
 package io.padam_exercise.padamdaily.screens
 
+import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +14,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
 import padam_exercise.padamdaily.R
+import padam_exercise.padamdaily.databinding.FragmentMapBinding
 
 /**
  * Map Fragment
@@ -23,6 +27,7 @@ import padam_exercise.padamdaily.R
 class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
 
     private var mMap: GoogleMap? = null
+    lateinit var  binding : FragmentMapBinding
 
     companion object {
         fun newInstance(): MapFragment = MapFragment()
@@ -57,7 +62,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_map, container, false)
+        binding = FragmentMapBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,9 +82,18 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
                 16f
             )
         )
+
+        /*color of itinary line*/
+        val options = PolylineOptions()
+        options.color(Color.RED)
+        options.width(5f)
     }
 
+    /*
+    enable a center zoom between two GPS points
+    zoom at 5f for landmass zoom
+     */
     private fun animateMapCamera(bounds: LatLngBounds) {
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
+        mMap?.animateCamera(CameraUpdateFactory.newCameraPosition(CameraPosition(bounds.center,5f,0f,0f)))
     }
 }

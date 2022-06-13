@@ -6,4 +6,7 @@
 
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBlTAwfQA5D-U8S8PSS8bl9dlf56vR-lKc</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
