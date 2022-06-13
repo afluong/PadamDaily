@@ -11,5 +11,11 @@ class Toolbox {
             }
             return stringList
         }
+
+        enum class Status {
+            SUCCESS,
+            ERROR,
+            LOADING
+        }
     }
 }
