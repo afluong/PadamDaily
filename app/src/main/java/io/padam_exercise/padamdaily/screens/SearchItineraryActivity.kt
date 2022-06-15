@@ -14,7 +14,6 @@ class SearchItineraryActivity : AppCompatActivity() {
 
     private lateinit var navController : NavController
     lateinit var binding: ActivitySearchItineraryBinding
-    private var mMapDelegate: MapActionsDelegate? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,8 @@
 package io.padam_exercise.padamdaily.screens
 
+import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -80,11 +83,25 @@ class MainFragment : Fragment() {
     private fun manageOnClickSearchItinerary() {
         btn_search_itinerary.setOnClickListener {
             mMapDelegate?.clearMap()
-            viewModelRoutesFragment.departureSuggestion.value = spinner_departure.selectedItem.toString()
-            viewModelRoutesFragment.arrivalSuggestion.value = spinner_arrival.selectedItem.toString()
-            viewModelRoutesFragment.getSuggestion()
 
-            /* doesn't work : SSL HANDSHAKE ERROR
+            val selectedDeparture: String = spinner_departure.selectedItem.toString()
+            val departureSuggestion = viewModelRoutesFragment.getSuggestionFromSelection(selectedDeparture, MockSuggestion.departures())
+
+            val selectedArrival: String = spinner_arrival.selectedItem.toString()
+            val arrivalSuggestion = viewModelRoutesFragment.getSuggestionFromSelection(selectedArrival, MockSuggestion.arrivals())
+
+            /*
+            Place departure and arrival point on the map and send data for update map
+             */
+            mMapDelegate?.apply {
+                updateMarker(MarkerType.DEPARTURE, departureSuggestion)
+                updateMarker(MarkerType.ARRIVAL, arrivalSuggestion)
+                updateMap(departureSuggestion.latLng, arrivalSuggestion.latLng)
+            }
+            //Show popup
+            showPopUp(arrivalSuggestion.latLng.latitude.toString(),arrivalSuggestion.latLng.longitude.toString())
+
+            /* Api call doesn't work : SSL HANDSHAKE ERROR
 
        val apiClient = GoogleApiClient().apiClient
 
@@ -94,6 +111,22 @@ class MainFragment : Fragment() {
                     Log.d("Google Response", response.toString())
             }*/
         }
+    }
+
+    private fun showPopUp(paramLocationLat: String, paramLocationLng: String) {
+        AlertDialog.Builder(context).apply {
+            setTitle("Travel info")
+            setMessage("Time travel = 32") // insert variable time travel fetch with api call
+            setCancelable(true)
+            setPositiveButton("Open maps"){ _, _ -> openMaps(paramLocationLat,paramLocationLng)}
+        }.show()
+    }
+
+    private fun openMaps(paramLocationLat: String, paramLocationLng: String) {
+        val intent = Uri.parse("geo:$paramLocationLat,$paramLocationLng")
+        val mapIntent = Intent(Intent.ACTION_VIEW, intent)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        startActivity(mapIntent)
     }
 }
 
