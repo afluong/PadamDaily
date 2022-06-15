@@ -1,83 +1,40 @@
 package io.padam_exercise.padamdaily.screens
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import io.padam_exercise.padamdaily.models.MarkerType
-import io.padam_exercise.padamdaily.models.mocking.MockSuggestion
-import io.padam_exercise.padamdaily.models.Suggestion
-import io.padam_exercise.padamdaily.utils.Toolbox
-import kotlinx.android.synthetic.main.activity_search_itinerary.*
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import padam_exercise.padamdaily.R
+import padam_exercise.padamdaily.databinding.ActivitySearchItineraryBinding
 
 class SearchItineraryActivity : AppCompatActivity() {
 
+    private lateinit var navController : NavController
+    lateinit var binding: ActivitySearchItineraryBinding
     private var mMapDelegate: MapActionsDelegate? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_itinerary)
+        binding = ActivitySearchItineraryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
-        initMapFragment()
-        initView()
     }
 
-    private fun initMapFragment() {
-        val mapFragment: MapFragment = MapFragment.newInstance()
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.cl_map, mapFragment)
-            .commitAllowingStateLoss()
-
-        mMapDelegate = mapFragment
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu)
+        return true
     }
 
-    private fun initView() {
-        initSpinners()
-        manageOnClickSearchItinerary()
-    }
-
-    private fun initSpinners() {
-        initDepartureSpinner()
-        initArrivalSpinner()
-    }
-
-    private fun initDepartureSpinner() {
-        val departuresList = Toolbox.getStringListFromSuggestion(MockSuggestion.departures())
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, departuresList)
-        spinner_departure.adapter = adapter
-    }
-
-    private fun initArrivalSpinner() {
-        val arrivalsList = Toolbox.getStringListFromSuggestion(MockSuggestion.arrivals())
-        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,arrivalsList)
-        spinner_arrival.adapter = adapter
-    }
-
-    private fun manageOnClickSearchItinerary() {
-        btn_search_itinerary.setOnClickListener {
-            mMapDelegate?.clearMap()
-
-            val selectedDeparture: String = spinner_departure.selectedItem.toString()
-            val departureSuggestion = getSuggestionFromSelection(selectedDeparture, MockSuggestion.departures())
-
-            val selectedArrival : String = spinner_arrival.selectedItem.toString()
-            val arrivalSuggestion = getSuggestionFromSelection(selectedArrival , MockSuggestion.arrivals())
-
-            mMapDelegate?.apply {
-                updateMarker(MarkerType.DEPARTURE, departureSuggestion)
-                updateMarker(MarkerType.ARRIVAL, arrivalSuggestion)
-                updateMap(departureSuggestion.latLng, arrivalSuggestion.latLng)
-            }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.resumePage-> Navigation.findNavController(this,R.id.my_fragment).navigate(R.id.resumeFragment)
+            R.id.searchPage-> Navigation.findNavController(this,R.id.my_fragment).navigate(R.id.mainFragment)
         }
-    }
-
-    private fun getSuggestionFromSelection(selection: String, suggestionList: ArrayList<Suggestion>): Suggestion {
-        for (suggestion in suggestionList) {
-            if (suggestion.name == selection) {
-                return suggestion
-            }
-        }
-        return suggestionList.first()
+        return super.onOptionsItemSelected(item)
     }
 }
