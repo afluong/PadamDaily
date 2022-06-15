@@ -64,12 +64,10 @@ class SearchItineraryActivity : AppCompatActivity() {
             val selectedArrival : String = spinner_arrival.selectedItem.toString()
             val arrivalSuggestion = getSuggestionFromSelection(selectedArrival , MockSuggestion.arrivals())
 
-            mMapDelegate?.updateMarker(MarkerType.DEPARTURE, departureSuggestion)
-            mMapDelegate?.updateMap(departureSuggestion.latLng)
-            
             mMapDelegate?.apply {
-                updateMarker(MarkerType.ARRIVAL , arrivalSuggestion)
-                updateMap(arrivalSuggestion.latLng)
+                updateMarker(MarkerType.DEPARTURE, departureSuggestion)
+                updateMarker(MarkerType.ARRIVAL, arrivalSuggestion)
+                updateMap(departureSuggestion.latLng, arrivalSuggestion.latLng)
             }
         }
     }
