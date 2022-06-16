@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.navigation:navigation-common-ktx:2.4.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bf0bc864ea086f8422660fcce1a79700/transformed/navigation-common-ktx-2.4.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/bf0bc864ea086f8422660fcce1a79700/transformed/navigation-common-ktx-2.4.2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/bf0bc864ea086f8422660fcce1a79700/transformed/navigation-common-ktx-2.4.2/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3e0d5c1139d77b024b42b50fd4d074dd/transformed/navigation-common-ktx-2.4.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3e0d5c1139d77b024b42b50fd4d074dd/transformed/navigation-common-ktx-2.4.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3e0d5c1139d77b024b42b50fd4d074dd/transformed/navigation-common-ktx-2.4.2/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

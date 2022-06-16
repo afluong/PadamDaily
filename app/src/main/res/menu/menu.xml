@@ -15,4 +15,11 @@
         android:icon="@color/colorPrimary"
         android:title="resumePage"
         />
+
+    <item
+        android:id="@+id/composePage"
+        app:showAsAction="never"
+        android:icon="@color/colorPrimary"
+        android:title="composePage"
+        />
 </menu>

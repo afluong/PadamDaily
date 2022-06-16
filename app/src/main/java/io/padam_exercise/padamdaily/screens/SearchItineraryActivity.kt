@@ -24,7 +24,7 @@ class SearchItineraryActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu,menu)
         return true
     }
@@ -33,6 +33,7 @@ class SearchItineraryActivity : AppCompatActivity() {
         when(item.itemId){
             R.id.resumePage-> Navigation.findNavController(this,R.id.my_fragment).navigate(R.id.resumeFragment)
             R.id.searchPage-> Navigation.findNavController(this,R.id.my_fragment).navigate(R.id.mainFragment)
+            R.id.composePage -> Navigation.findNavController(this,R.id.my_fragment).navigate(R.id.composeFragment2)
         }
         return super.onOptionsItemSelected(item)
     }
