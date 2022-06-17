@@ -17,4 +17,10 @@
         android:label="@string/menu_resume"
         tools:layout="@layout/fragment_resume" />
 
+    <fragment
+        android:id="@+id/nav_resume_compose"
+        android:name="io.padam_exercise.padamdaily.screens.ResumeComposeFragment"
+        android:label="@string/menu_resume_compose"
+        tools:layout="@layout/fragment_resume_compose" />
+
 </navigation>

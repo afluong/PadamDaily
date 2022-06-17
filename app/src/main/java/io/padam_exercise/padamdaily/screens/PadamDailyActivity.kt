@@ -26,7 +26,7 @@ class PadamDailyActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_search_itinerary, R.id.nav_resume
+                R.id.nav_search_itinerary, R.id.nav_resume, R.id.nav_resume_compose
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -60,4 +60,7 @@ Java, Android, Android Studio, SQLite, REST web services, Springboot, Hibernate,
     <string name="resume_skill1">Java</string>
     <string name="resume_skill2">Android</string>
     <string name="resume_skill3">Teamwork</string>
+
+    <string name="menu_resume_compose">Resume with Compose</string>
+
 </resources>
