@@ -6,4 +6,7 @@
 
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBlTAwfQA5D-U8S8PSS8bl9dlf56vR-lKc</string>
+    <string name="travel_time_alert_title">Temps de trajet</string>
+    <string name="travel_time_alert_yes_button">Ouvrir la naviagtion</string>
+    <string name="travel_time_alert_no_button">Fermer</string>
 </resources>
