@@ -12,6 +12,8 @@ interface MapActionsDelegate {
 
     fun updateMap(vararg latLngArgs: LatLng?)
 
+    fun drawItinerary(latLngDeparture: LatLng, latLngArrival: LatLng)
+
     fun updateMarker(markerType: MarkerType, suggestion: Suggestion)
 
     fun clearMap()

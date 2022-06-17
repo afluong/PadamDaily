@@ -66,6 +66,8 @@ class SearchItineraryActivity : AppCompatActivity() {
 
             updateMap(suggestionDeparture, suggestionArrival)
 
+            mMapDelegate?.drawItinerary(suggestionDeparture.latLng, suggestionArrival.latLng)
+
         }
     }
 
