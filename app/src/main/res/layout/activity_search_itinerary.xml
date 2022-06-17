@@ -18,12 +18,29 @@
         android:padding="@dimen/large_padding"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <TextView
+            android:id="@+id/textView_departure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Departure"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <Spinner
             android:id="@+id/spinner_departure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_origin"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@drawable/spinner_padam"
+            app:layout_constraintTop_toBottomOf="@+id/textView_departure" />
+
+        <TextView
+            android:id="@+id/textView_arrival"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arrival"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_departure"
+            />
 
         <Spinner
             android:id="@+id/spinner_arrival"
@@ -31,15 +48,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:hint="@string/hint_destination"
-            app:layout_constraintTop_toBottomOf="@id/spinner_departure" />
+            android:background="@drawable/spinner_padam"
+            app:layout_constraintTop_toBottomOf="@+id/textView_arrival" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_search_itinerary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
+            android:background="@drawable/round_accent_colored_button"
             android:text="@string/action_search"
-            app:layout_constraintTop_toBottomOf="@id/spinner_arrival" />
+            app:layout_constraintTop_toBottomOf="@id/spinner_arrival"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
