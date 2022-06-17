@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_search_itinerary">
+
+    <fragment
+        android:id="@+id/nav_search_itinerary"
+        android:name="io.padam_exercise.padamdaily.screens.SearchItineraryFragment"
+        android:label="@string/menu_search_itinerary"
+        tools:layout="@layout/fragment_search_itinerary" />
+
+    <fragment
+        android:id="@+id/nav_resume"
+        android:name="io.padam_exercise.padamdaily.screens.ResumeFragment"
+        android:label="@string/menu_resume"
+        tools:layout="@layout/fragment_resume" />
+
+    <fragment
+        android:id="@+id/nav_resume_compose"
+        android:name="io.padam_exercise.padamdaily.screens.ResumeComposeFragment"
+        android:label="@string/menu_resume_compose"
+        tools:layout="@layout/fragment_resume_compose" />
+
+</navigation>

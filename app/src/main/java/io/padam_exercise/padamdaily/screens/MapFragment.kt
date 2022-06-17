@@ -1,6 +1,12 @@
 package io.padam_exercise.padamdaily.screens
 
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +18,16 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
 import padam_exercise.padamdaily.R
+import com.google.maps.android.PolyUtil
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 /**
  * Map Fragment
@@ -37,6 +50,76 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
             val bounds = builder.build()
             animateMapCamera(bounds)
         }
+    }
+
+    override fun drawItinerary(latLngDeparture: LatLng, latLngArrival: LatLng) {
+        val path: MutableList<List<LatLng>> = ArrayList()
+        val myAPIKEY = requireContext().getPackageManager()
+            .getApplicationInfo(requireContext().getPackageName(), PackageManager.GET_META_DATA)
+            .metaData.getString("com.google.android.geo.API_KEY")
+
+        val depCoordinate = "" + latLngDeparture.latitude + ","+latLngDeparture.longitude
+        val arCoordinate = "" + latLngArrival.latitude + ","+latLngArrival.longitude
+        val urlDirections =
+            "https://maps.googleapis.com/maps/api/directions/json?origin=$depCoordinate&destination=$arCoordinate&key=$myAPIKEY";
+        Log.d("MapFragment", "google api request : $urlDirections");
+
+        val directionsRequest = object : StringRequest(Request.Method.GET, urlDirections, Response.Listener<String> {
+                response ->
+            val jsonResponse = JSONObject(response)
+            Log.d("MapFragment", "google api response : $jsonResponse")
+
+            val routes = jsonResponse.getJSONArray("routes")
+            val legs = routes.getJSONObject(0).getJSONArray("legs")
+            val steps = legs.getJSONObject(0).getJSONArray("steps")
+            for (i in 0 until steps.length()) {
+                val points = steps.getJSONObject(i).getJSONObject("polyline").getString("points")
+                path.add(PolyUtil.decode(points))
+            }
+
+            for (i in 0 until path.size) {
+                mMap!!.addPolyline(PolylineOptions().addAll(path[i]).color(Color.RED))
+            }
+
+            val duration = legs.getJSONObject(0).getJSONObject("duration").getString("text")
+            Log.d("MapFragment", "google api response duration : $duration")
+            openDialogTimeTRavel(duration, depCoordinate, arCoordinate)
+
+        }, Response.ErrorListener { error ->
+            Log.i("MapFragment", error.toString())
+
+        }){}
+        val requestQueue = Volley.newRequestQueue(this.context)
+        requestQueue.add(directionsRequest)
+    }
+
+    fun openDialogTimeTRavel(duration : String, departureCoordinate : String, arrivalCoordinate : String) {
+
+        val builder = AlertDialog.Builder(this.context)
+        builder.setTitle(getString(R.string.travel_time_alert_title))
+        builder.setMessage(duration)
+
+        builder.setPositiveButton(getString(R.string.travel_time_alert_yes_button)) { dialog, which ->
+            val builder = Uri.Builder()
+            builder.scheme("https")
+                .authority("www.google.com")
+                .appendPath("maps")
+                .appendPath("dir")
+                .appendPath("")
+                .appendQueryParameter("api", "1")
+                .appendQueryParameter("origin", departureCoordinate)
+                .appendQueryParameter("destination", arrivalCoordinate)
+
+            val url = builder.build().toString()
+            val navigationIntent = Intent(Intent.ACTION_VIEW)
+            navigationIntent.data = Uri.parse(url)
+            startActivity(navigationIntent)
+        }
+
+        builder.setNegativeButton(getString(R.string.travel_time_alert_no_button)) { dialog, which ->
+        }
+
+        builder.show()
     }
 
     override fun updateMarker(markerType: MarkerType, suggestion: Suggestion) {

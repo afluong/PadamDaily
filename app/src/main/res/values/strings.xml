@@ -3,7 +3,64 @@
     <string name="hint_origin">origin</string>
     <string name="hint_destination">destination</string>
     <string name="action_search">search</string>
+    <string name="searchItinerary_arrival_label">Arrival</string>
+    <string name="searchItinerary_departure_label">Departure</string>
 
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBlTAwfQA5D-U8S8PSS8bl9dlf56vR-lKc</string>
+    <string name="travel_time_alert_title">Temps de trajet</string>
+    <string name="travel_time_alert_yes_button">Ouvrir la naviagtion</string>
+    <string name="travel_time_alert_no_button">Fermer</string>
+
+    <string name="menu_search_itinerary">SearchItinerary</string>
+    <string name="menu_resume">Resume</string>
+    <string name="resume_name">Coralie Saysset</string>
+    <string name="resume_role">Android Developer</string>
+    <string name="resume_phone">07 82 03 99 80</string>
+    <string name="resume_mail">csaysset@e.email</string>
+    <string name="resume_city">Villeurbanne</string>
+    <string name="resume_experience">Experience</string>
+    <string name="resume_education">Education</string>
+    <string name="resume_skills">skills</string>
+    <string name="resume_exp1_title">Lead Web development engineer</string>
+    <string name="resume_exp1_body">Developing new features and maintaining a Java web application for a client working in transport.\nWhole lifecycle of the new features: Design, development, writing functional and technical
+specifications, tests, delivery and incident management.\n Fullstack web Developer : J2EE, Hibernate, Spring, Web services Rest, MySQL\nLeading a 5 person team (2 juniors, 2 intermediate devs and myself)</string>
+    <string name="resume_exp1_society">Astek</string>
+    <string name="resume_exp1_year">December 2021 - June 2021</string>
+    <string name="resume_exp2_title">Lead Android Developer</string>
+    <string name="resume_exp2_body">Development of a medical mobile application monitoring psychiatric symptoms through medical survey.
+
+Whole lifecycle of the application: Conception, design, development, writing functional and technical specifications, tests, delivery and incident management.
+
+Worked as a Lead dev on the Android application and as a developer on the iOS version.\n\n\n
+
+Also worked on the backend development, and the web platform used by psychiatrics.
+Java, Android, Android Studio, SQLite, REST web services, Springboot, Hibernate, Git</string>
+    <string name="resume_exp2_society">MentalApps</string>
+    <string name="resume_exp2_year">November 2017 - June 2019</string>
+    <string name="resume_exp3_title">Android Developer</string>
+    <string name="resume_exp3_body">Conception and Development of an Android application prototype for an art exposition. The application was made to generate pictures from user input.
+\n\nLeading Design Workshops with the client and working on the whole lifecycle of the application: Design, development, test, test development, delivery,
+\n\nJava, Android, Android Studio
+</string>
+    <string name="resume_exp3_society">Freelance</string>
+    <string name="resume_exp3_year">October 2016 - September 2017</string>
+    <string name="resume_exp4_title">PHD student</string>
+    <string name="resume_exp4_body">I developed a new compiler backend (C++=>C) for dataflow applications adding a C scheduler at runtime to improve performance on multicore platforms
+
+\n\nBibliography, Compilation, OS, Scheduling, Parallelism, Dataflow, Architecture</string>
+    <string name="resume_exp4_society">CITI Laboratory</string>
+    <string name="resume_exp4_year">September 2014 - September 2016 </string>
+    <string name="resume_school1_title">INSA de Lyon</string>
+    <string name="resume_school1_year">2009 – 2014</string>
+    <string name="resume_school1_body">Engineering school, Computer Science </string>
+    <string name="resume_school2_title">Lyon 1 University</string>
+    <string name="resume_school2_year">2013 – 2014</string>
+    <string name="resume_school2_body">Master of Research - Double degree with Lyon 1 University and INSA de Lyon Engineering school,Degree in Telecommunications, Computer Architecture and Systems  </string>
+    <string name="resume_skill1">Java</string>
+    <string name="resume_skill2">Android</string>
+    <string name="resume_skill3">Teamwork</string>
+
+    <string name="menu_resume_compose">Resume with Compose</string>
+
 </resources>
