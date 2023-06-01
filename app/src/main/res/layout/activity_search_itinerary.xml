@@ -18,28 +18,58 @@
         android:padding="@dimen/large_padding"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Spinner
-            android:id="@+id/spinner_departure"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textview_departure"
+            style="@style/Widget.TextView.Header"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_origin"
+            android:text="@string/departure"
+            android:layout_marginStart="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner_arrival"
+            android:id="@+id/spinner_departure"
+            style="@style/Widget.Spinner"
             android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:hint="@string/hint_origin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_departure" />
+
+        <TextView
+            android:id="@+id/textview_arrival"
+            style="@style/Widget.TextView.Header"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:text="@string/arrival"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_departure" />
+
+        <Spinner
+            android:id="@+id/spinner_arrival"
+            style="@style/Widget.Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:layout_marginTop="@dimen/default_margin"
             android:hint="@string/hint_destination"
-            app:layout_constraintTop_toBottomOf="@id/spinner_departure" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_arrival" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_search_itinerary"
+            style="@style/Widget.Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
+            android:layout_height="48dp"
+            android:layout_marginTop="@dimen/large_margin"
             android:text="@string/action_search"
-            app:layout_constraintTop_toBottomOf="@id/spinner_arrival" />
+            app:layout_constraintTop_toBottomOf="@id/spinner_arrival"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
