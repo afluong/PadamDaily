@@ -44,8 +44,10 @@ class SearchItineraryActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.itineraryFlow.collect {
-                    // New itinerary
+                viewModel.itineraryFlow.collect { directionResponse ->
+                    directionResponse?.let {
+                        mMapDelegate?.drawItinerary(it)
+                    }
                 }
             }
         }

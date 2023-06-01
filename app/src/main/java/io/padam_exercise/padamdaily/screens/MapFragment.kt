@@ -1,5 +1,6 @@
 package io.padam_exercise.padamdaily.screens
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
+import io.padam_exercise.padamdaily.network.DirectionResponse
 import padam_exercise.padamdaily.R
 
 /**
@@ -63,10 +66,37 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
         mMap?.clear()
     }
 
+    override fun drawItinerary(directionResponse: DirectionResponse) {
+        mMap?.let {
+            var lineOptions = PolylineOptions()
+            directionResponse.routes?.forEach { route ->
+                route.legs?.forEach { leg ->
+                    val points = mutableListOf<LatLng>()
+                    lineOptions = PolylineOptions()
+                    leg.steps?.forEach { step ->
+                        if (step.startLocation != null) {
+                            points.add(
+                                LatLng(
+                                    step.startLocation.latitude,
+                                    step.startLocation.longitude
+                                )
+                            )
+                        }
+                    }
+                    lineOptions.addAll(points)
+                    lineOptions.width(12f)
+                    lineOptions.color(Color.BLUE)
+                    lineOptions.geodesic(true)
+                }
+            }
+            mMap?.addPolyline(lineOptions)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }

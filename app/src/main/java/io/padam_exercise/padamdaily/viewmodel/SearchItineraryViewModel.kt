@@ -3,7 +3,10 @@ package io.padam_exercise.padamdaily.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.padam_exercise.padamdaily.models.Suggestion
+import io.padam_exercise.padamdaily.network.DirectionResponse
 import io.padam_exercise.padamdaily.network.GoogleMapApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,8 +23,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class SearchItineraryViewModel: ViewModel() {
 
-    private val _itineraryFlow = MutableStateFlow(0)
-    internal val itineraryFlow: StateFlow<Int>
+    private val _itineraryFlow = MutableStateFlow(null as DirectionResponse?)
+    internal val itineraryFlow: StateFlow<DirectionResponse?>
         get() = _itineraryFlow
 
 
@@ -37,17 +40,22 @@ class SearchItineraryViewModel: ViewModel() {
         val googleMapsApi = createRetrofit().create(GoogleMapApi::class.java)
         val origin = "${suggestionDeparture.latLng.latitude},${suggestionDeparture.latLng.longitude}"
         val destination = "${suggestionArrival.latLng.latitude},${suggestionArrival.latLng.longitude}"
-        val json = googleMapsApi.getDirection(apiKey, origin, destination)
-        Log.d("GoogleMaps", "JSON:/n $json")
-        emit(0)
+        val direction = googleMapsApi.getDirection(apiKey, origin, destination)
+        emit(direction)
     }
     .flowOn(Dispatchers.IO)
 
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(createMoshi()))
             .baseUrl(BuildConfig.GOOGLE_MAPS_BASE_URL)
             .client(createOkHttpClient())
+            .build()
+    }
+
+    private fun createMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
             .build()
     }
 

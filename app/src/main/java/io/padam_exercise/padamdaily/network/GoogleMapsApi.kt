@@ -1,6 +1,5 @@
 package io.padam_exercise.padamdaily.network;
 
-import padam_exercise.padamdaily.BuildConfig
 import retrofit2.http.GET;
 import retrofit2.http.Query
 
@@ -15,6 +14,6 @@ interface GoogleMapApi {
         @Query("key") apiKey: String,
         @Query("origin") origin: String,
         @Query("destination") destination: String
-    ): Any
+    ): DirectionResponse
 
 }
