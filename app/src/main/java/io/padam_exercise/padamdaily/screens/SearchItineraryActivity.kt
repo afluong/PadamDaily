@@ -3,6 +3,7 @@ package io.padam_exercise.padamdaily.screens
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -46,7 +47,11 @@ class SearchItineraryActivity : AppCompatActivity() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.itineraryFlow.collect { directionResponse ->
                     directionResponse?.let {
-                        mMapDelegate?.drawItinerary(it)
+                        if (it.routes.isNullOrEmpty()) {
+                            Toast.makeText(this@SearchItineraryActivity, R.string.no_itinerary, Toast.LENGTH_LONG).show()
+                        } else {
+                            mMapDelegate?.drawItinerary(it)
+                        }
                     }
                 }
             }

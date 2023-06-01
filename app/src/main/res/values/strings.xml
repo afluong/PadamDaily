@@ -8,4 +8,5 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBlTAwfQA5D-U8S8PSS8bl9dlf56vR-lKc</string>
     <string name="departure">Departure</string>
     <string name="arrival">Arrival</string>
+    <string name="no_itinerary">No itinerary</string>
 </resources>
