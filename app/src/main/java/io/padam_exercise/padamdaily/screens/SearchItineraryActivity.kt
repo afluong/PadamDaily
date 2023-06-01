@@ -44,12 +44,14 @@ class SearchItineraryActivity : AppCompatActivity() {
 
     private fun initDepartureSpinner() {
         val departuresList = Toolbox.getStringListFromSuggestion(MockSuggestion.departures())
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, departuresList)
-        spinner_departure.adapter = adapter
+        val departureAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, departuresList)
+        spinner_departure.adapter = departureAdapter
     }
 
     private fun initArrivalSpinner() {
-        // TODO: Implement data
+        val arrivalsList = Toolbox.getStringListFromSuggestion(MockSuggestion.arrivals())
+        val arrivalAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrivalsList)
+        spinner_arrival.adapter = arrivalAdapter
     }
 
     private fun manageOnClickSearchItinerary() {
@@ -57,10 +59,17 @@ class SearchItineraryActivity : AppCompatActivity() {
             mMapDelegate?.clearMap()
 
             val selectedDeparture: String = spinner_departure.selectedItem.toString()
-            val suggestion = getSuggestionFromSelection(selectedDeparture, MockSuggestion.departures())
+            val departureSuggestion = getSuggestionFromSelection(selectedDeparture, MockSuggestion.departures())
 
-            mMapDelegate?.updateMarker(MarkerType.DEPARTURE, suggestion)
-            mMapDelegate?.updateMap(suggestion.latLng)
+            val selectedArrival: String = spinner_arrival.selectedItem.toString()
+            val arrivalSuggestion = getSuggestionFromSelection(selectedArrival, MockSuggestion.arrivals())
+
+            mMapDelegate?.run {
+                clearMap()
+                updateMarker(MarkerType.DEPARTURE, departureSuggestion)
+                updateMarker(MarkerType.ARRIVAL, arrivalSuggestion)
+                updateMap(departureSuggestion.latLng, arrivalSuggestion.latLng)
+            }
         }
     }
 
