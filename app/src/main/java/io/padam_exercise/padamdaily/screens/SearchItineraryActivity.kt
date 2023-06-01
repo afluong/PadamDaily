@@ -1,18 +1,39 @@
 package io.padam_exercise.padamdaily.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.squareup.moshi.Moshi
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.mocking.MockSuggestion
 import io.padam_exercise.padamdaily.models.Suggestion
+import io.padam_exercise.padamdaily.network.GoogleMapApi
 import io.padam_exercise.padamdaily.utils.Toolbox
-import kotlinx.android.synthetic.main.activity_search_itinerary.*
+import io.padam_exercise.padamdaily.viewmodel.SearchItineraryViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import padam_exercise.padamdaily.BuildConfig
 import padam_exercise.padamdaily.R
+import padam_exercise.padamdaily.databinding.ActivitySearchItineraryBinding
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class SearchItineraryActivity : AppCompatActivity() {
 
+    private val binding by lazy { ActivitySearchItineraryBinding.bind(findViewById(R.id.root_layout)) }
+
     private var mMapDelegate: MapActionsDelegate? = null
+
+    private val viewModel by lazy { SearchItineraryViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +41,14 @@ class SearchItineraryActivity : AppCompatActivity() {
 
         initMapFragment()
         initView()
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.itineraryFlow.collect {
+                    // New itinerary
+                }
+            }
+        }
     }
 
     private fun initMapFragment() {
@@ -45,28 +74,30 @@ class SearchItineraryActivity : AppCompatActivity() {
     private fun initDepartureSpinner() {
         val departuresList = Toolbox.getStringListFromSuggestion(MockSuggestion.departures())
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, departuresList)
-        spinner_departure.adapter = adapter
+        binding.spinnerDeparture.adapter = adapter
     }
 
     private fun initArrivalSpinner() {
         val arrivalsList = Toolbox.getStringListFromSuggestion(MockSuggestion.arrivals())
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrivalsList)
-        spinner_arrival.adapter = adapter
+        binding.spinnerArrival.adapter = adapter
     }
 
     private fun manageOnClickSearchItinerary() {
-        btn_search_itinerary.setOnClickListener {
+        binding.btnSearchItinerary.setOnClickListener {
             mMapDelegate?.clearMap()
 
-            val selectedDeparture: String = spinner_departure.selectedItem.toString()
+            val selectedDeparture: String = binding.spinnerDeparture.selectedItem.toString()
             val suggestionDeparture = getSuggestionFromSelection(selectedDeparture, MockSuggestion.departures())
             mMapDelegate?.updateMarker(MarkerType.DEPARTURE, suggestionDeparture)
 
-            val selectedArrival: String = spinner_arrival.selectedItem.toString()
+            val selectedArrival: String = binding.spinnerArrival.selectedItem.toString()
             val suggestionArrival = getSuggestionFromSelection(selectedArrival, MockSuggestion.arrivals())
             mMapDelegate?.updateMarker(MarkerType.ARRIVAL, suggestionArrival)
 
             mMapDelegate?.updateMap(suggestionDeparture.latLng, suggestionArrival.latLng)
+
+            viewModel.getItinerary(getString(R.string.google_maps_key), suggestionDeparture, suggestionArrival)
         }
     }
 
