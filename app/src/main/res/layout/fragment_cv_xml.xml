@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="06 47 95 49 89"
+                android:autoLink="phone"
                 android:textSize="12sp" />
 
             <TextView
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="sophian.laroy@gmail.com"
+                android:autoLink="email"
                 android:textSize="12sp" />
 
         </LinearLayout>

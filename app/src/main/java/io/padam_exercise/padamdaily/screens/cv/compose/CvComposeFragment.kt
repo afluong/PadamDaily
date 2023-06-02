@@ -2,7 +2,11 @@ package io.padam_exercise.padamdaily.screens.cv.compose
 
 import android.icu.text.SymbolTable
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
+import android.util.Patterns
 import android.view.View
+import android.widget.TextView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,10 +15,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -22,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.text.util.LinkifyCompat
 import androidx.fragment.app.Fragment
 import padam_exercise.padamdaily.R
 import padam_exercise.padamdaily.databinding.FragmentCvComposeBinding
@@ -155,22 +163,22 @@ fun Contact() {
             .padding(start = 8.dp, top = 8.dp),
         text = "Téléphone"
     )
-    Text(
+    DefaultLinkifyText(
         modifier = Modifier
             .padding(start = 8.dp, top = 4.dp),
-        fontSize = 12.sp,
-        text = "06 47 95 49 89"
+        text = "06 47 95 49 89",
+        textSize = 12f
     )
     CVHeader2(
         modifier = Modifier
             .padding(start = 8.dp, top = 8.dp),
         text = "Email"
     )
-    Text(
+    DefaultLinkifyText(
         modifier = Modifier
             .padding(start = 8.dp, top = 4.dp),
-        fontSize = 12.sp,
-        text = "sophian.laroy@gmail.com"
+        text = "sophian.laroy@gmail.com",
+        textSize = 12f
     )
 }
 
@@ -235,6 +243,25 @@ fun Line(modifier: Modifier = Modifier) {
         color = colorResource(R.color.colorAccent),
         thickness = 1.dp
     )
+}
+
+/**
+ * Find this solution here: https://stackoverflow.com/a/68670628
+ */
+@Composable
+fun DefaultLinkifyText(modifier: Modifier = Modifier, text: String?, textSize: Float) {
+    val context = LocalContext.current
+    val customLinkifyTextView = remember {
+        TextView(context)
+    }
+    AndroidView(modifier = modifier, factory = { customLinkifyTextView }) { textView ->
+        textView.text = text ?: ""
+        textView.textSize = textSize
+        LinkifyCompat.addLinks(textView, Linkify.EMAIL_ADDRESSES)
+        Linkify.addLinks(textView, Patterns.PHONE,"tel:",
+            Linkify.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter)
+        textView.movementMethod = LinkMovementMethod.getInstance()
+    }
 }
 
 @Preview(showSystemUi = true, showBackground = true)
