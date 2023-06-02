@@ -8,5 +8,8 @@ data class Step(
     val startLocation: Location?,
 
     @Json(name = "end_location")
-    val endLocation: Location?
+    val endLocation: Location?,
+
+    @Json(name = "duration")
+    val duration: StepDuration?
 )

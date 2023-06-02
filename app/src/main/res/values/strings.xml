@@ -9,4 +9,5 @@
     <string name="departure">Departure</string>
     <string name="arrival">Arrival</string>
     <string name="no_itinerary">No itinerary</string>
+    <string name="open">Open</string>
 </resources>

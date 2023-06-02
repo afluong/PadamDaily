@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -27,6 +28,8 @@ import padam_exercise.padamdaily.R
 import padam_exercise.padamdaily.databinding.ActivitySearchItineraryBinding
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 class SearchItineraryActivity : AppCompatActivity() {
 
@@ -46,15 +49,31 @@ class SearchItineraryActivity : AppCompatActivity() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.itineraryFlow.collect { directionResponse ->
-                    directionResponse?.let {
-                        if (it.routes.isNullOrEmpty()) {
+                    directionResponse?.let { directionResponse ->
+                        if (directionResponse.routes.isNullOrEmpty()) {
                             Toast.makeText(this@SearchItineraryActivity, R.string.no_itinerary, Toast.LENGTH_LONG).show()
-                        } else {
-                            mMapDelegate?.drawItinerary(it)
+                            return@collect
+                        }
+                        directionResponse.routes.firstOrNull()?.let { firstRoute ->
+                            val duration = firstRoute.getDuration()
+                            if (duration > 0L.seconds) {
+                                displayDialog(duration)
+                                mMapDelegate?.drawItinerary(directionResponse)
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun displayDialog(duration: Duration) {
+        var fragment = supportFragmentManager.findFragmentByTag(ItineraryBottomSheetDialogFragment.TAG) as DialogFragment?
+        if (fragment == null) {
+            fragment = ItineraryBottomSheetDialogFragment.newInstance(duration)
+        }
+        if (!fragment.isAdded) {
+            fragment.show(supportFragmentManager, ItineraryBottomSheetDialogFragment.TAG)
         }
     }
 
