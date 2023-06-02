@@ -1,6 +1,5 @@
-package io.padam_exercise.padamdaily.viewmodel
+package io.padam_exercise.padamdaily.screens.search_itinerary
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.Moshi
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import padam_exercise.padamdaily.BuildConfig
-import padam_exercise.padamdaily.R
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
