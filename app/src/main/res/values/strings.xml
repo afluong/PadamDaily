@@ -19,6 +19,12 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_search_itinerary">Search itinerary</string>
-    <string name="menu_gallery">Gallery</string>
+    <string name="cv_xml">CV in XML</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="hard_skills">• Kotlin\n• MVVM\n• Room\n• GQL\n• WebSockets\n• Java</string>
+    <string name="soft_skills">• Autonomie\n• Attrait pour l\'UX/UI\n• Travail en équipe\n• Gestion de sprints\n• Recrutement</string>
+    <string name="resume">Avec plus de 8 ans d\'expérience dans le domaine du développement, dont près de 7 ans dédiés spécifiquement au développement Android, j\'ai acquis une expertise solide dans la création d\'applications Android. Je suis particulièrement intéressé par la création de produits qui offrent une expérience utilisateur optimale. Ainsi, j\'aime travailler en collaboration avec des responsables produits et des designers afin d\'aboutir à des projets répondant aux besoins et aux attentes de l\'utilisateur final. De plus, mes capacités à relever des défis techniques et à travailler de manière autonome m\'ont permis de mener à bien des projets complexes avec succès.</string>
+    <string name="experiences_easymovie">• Migration de l’application en Kotlin et MVVM• Refonte graphique de l’application\n• Refonte graphique de l’application\n• Refactor de la BDD avec Room\n• Gestion du mode hors-ligne\n• Utilisation d’une nouvelle API en GraphQL (via Apollo)\n• Mise en place de WebSockets\n• Nouvelles fonctionnalités / Amélioration continue de l’app</string>
+    <string name="experiences_paymytable">• Refonte graphique de l’application mobile\n• Développement de nouveaux modules (Commande, Réservation, Avis)\n• Développement de « UIDK » pour que des clients externes utilisent nos services et
+workflows en customisant leurs vues\n• Application Tablette Samsung en mode Kiosk (via SDK Samsung Knox)\n• Application à destination des restaurateurs, connectée à leur imprimante Epson</string>
 </resources>

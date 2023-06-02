@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_search_itinerary" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="io.padam_exercise.padamdaily.screens.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_cv_xml"
+        android:name="io.padam_exercise.padamdaily.screens.search_itinerary.xml.CvXmlFragment"
+        android:label="@string/cv_xml"
+        tools:layout="@layout/fragment_cv_xml" />
 
     <fragment
         android:id="@+id/nav_slideshow"

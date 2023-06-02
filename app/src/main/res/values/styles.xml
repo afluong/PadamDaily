@@ -32,4 +32,16 @@
         <item name="android:height">48dp</item>
     </style>
 
+    <style name="Widget.TextView.CV.Header" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.TextView.CV.Header.1" parent="Widget.TextView.CV.Header">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Widget.TextView.CV.Header.2" parent="Widget.TextView.CV.Header">
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
