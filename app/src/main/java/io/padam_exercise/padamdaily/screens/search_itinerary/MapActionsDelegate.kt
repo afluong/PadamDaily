@@ -1,4 +1,4 @@
-package io.padam_exercise.padamdaily.screens
+package io.padam_exercise.padamdaily.screens.search_itinerary
 
 import com.google.android.gms.maps.model.LatLng
 import io.padam_exercise.padamdaily.models.MarkerType

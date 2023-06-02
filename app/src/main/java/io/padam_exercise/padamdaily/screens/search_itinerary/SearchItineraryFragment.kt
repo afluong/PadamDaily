@@ -12,9 +12,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
 import io.padam_exercise.padamdaily.models.mocking.MockSuggestion
-import io.padam_exercise.padamdaily.screens.ItineraryBottomSheetDialogFragment
-import io.padam_exercise.padamdaily.screens.MapActionsDelegate
-import io.padam_exercise.padamdaily.screens.MapFragment
 import io.padam_exercise.padamdaily.utils.Toolbox
 import kotlinx.coroutines.launch
 import padam_exercise.padamdaily.R

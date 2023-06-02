@@ -13,14 +13,14 @@
 
     <fragment
         android:id="@+id/nav_cv_xml"
-        android:name="io.padam_exercise.padamdaily.screens.search_itinerary.xml.CvXmlFragment"
+        android:name="io.padam_exercise.padamdaily.screens.cv.xml.CvXmlFragment"
         android:label="@string/cv_xml"
         tools:layout="@layout/fragment_cv_xml" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="io.padam_exercise.padamdaily.screens.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_cv_compose"
+        android:name="io.padam_exercise.padamdaily.screens.cv.compose.CvComposeFragment"
+        android:label="@string/menu_cv_compose"
+        tools:layout="@layout/fragment_cv_compose" />
 
 </navigation>

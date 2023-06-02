@@ -1,4 +1,4 @@
-package io.padam_exercise.padamdaily.screens
+package io.padam_exercise.padamdaily.screens.search_itinerary
 
 import android.content.Intent
 import android.net.Uri

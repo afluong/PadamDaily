@@ -1,4 +1,4 @@
-package io.padam_exercise.padamdaily.screens.search_itinerary.xml
+package io.padam_exercise.padamdaily.screens.cv.xml
 
 import android.os.Bundle
 import android.view.View
