@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">PadamDaily</string>
 
+    <string name="action_navigation">Navigation</string>
+    <string name="action_resume">Resume</string>
+
     <string name="label_departure">Departure</string>
     <!--string name="hint_origin">origin</string-->
     <string name="label_arrival">Arrival</string>
@@ -8,4 +11,33 @@
     <string name="action_search">search</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBlTAwfQA5D-U8S8PSS8bl9dlf56vR-lKc</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="search_itinerary_fragment_label">Search Itinerary Fragment</string>
+    <string name="resume_fragment_label">Resume Fragment</string>
+
+    <string name="resume_android_logo">android logo</string>
+    <string name="resume_name">Arielle TINCHON</string>
+    <string name="label_job_missions">Missions</string>
+
+    <string name="job1_title">Consultante IT chez Wavestone</string>
+    <string name="job1_desc">Accompagnement strat\égique \à la transformation digitale</string>
+    <string name="job1_missions">° compréhension du système existant\n\n° analyse du besoin\n\n° proposition d\'architecture\n\n° conception d\'IHM et modèle de données\n\n° élaboration d\'un plan d\'action\n\n° découpage logique de features et rédaction d\'User Stories détaillées</string>
+    <string name="job1_tech">° Suite MS Office\n° Figma\n° Visual Studio Code</string>
+
+    <string name="job2_title">Ingénieure développement logiciel et QA chez GetraLine</string>
+    <string name="job2_desc">Développement d\'un programme de simulation de fonctionnement d\'un ascenseur et d\'une campagne de tests automatisés pour une solution de supervision de maintenance des ascenseurs (stage de fin d\'études puis CDD au sein d\'une petite équipe SCRUM)</string>
+    <string name="job2_missions">° développement logiciel du simulateur de fonctionnement d\'ascenseur\n\n° raccordement de la solution (simulateur) avec le produit (boitier de supervision)\n\n° développement de scripts de tests du produit grâce à la solution\n\n° automatisation de l\'exécution de campagne de tests et mise en place de reporting\n\n° montée en compétences sur la méthodologie SCRUm et animation des cérémonies\n\n° configuration de mise en place de Jira</string>
+    <string name="job2_tech">° Ruby\n° Docker / Docker Compose / Portainer\n° Redis\n° Sinatra\n° RaspberryPi / C++\n° Cucumber / Gherkin\n° Jenkins\n° HTML / JS / CSS</string>
+
+    <string name="job3_title">Ingénieure QA chez ROSS Outside the Box</string>
+    <string name="job3_desc">Apprentissage et développement d\'une base de tests au sein d\'une équipe de développement logiciel, pour l\'administration fiscale de la ville de Cordoba, en Argentine (stage 2 mois)</string>
+    <string name="job3_missions">° développement de scripts de tests unitaires\n\n° développement de scripts de tests d\'intégration (appels API)\n\n° développement de scripts de tests front-end (interactions automatisés avec un navigateur web)</string>
+    <string name="job3_tech">° JEST\n° Postman\° Selenium\n° Gherkin\° Python</string>
+
+    <string name="job4_title">Ingénieure en développement mobile pour la CCI Angers</string>
+    <string name="job4_desc">Développement d\'une application d\'autodiagnostique afin de mesurer le niveau de maturité des entreprises dans l\'économie circulaire et de les aider dans leur démarche (projet étudiant sur l\'année puis stage de 2 mois, en collaboration avec les étudiants en Sécurité, Environnement et Prévention des risques de l\'école)</string>
+    <string name="job4_missions">° définition du cahier des charges\n\n° définition de l\'identité visuelle\n\n° design de l\'application (architecture de données, design graphique IHM)\n\n° développement de l\'application\n\n° présentation du projet et animation de phases de tests</string>
+    <string name="job4_tech">° Android Studio\n° Illustrator\n° PostgreSQL</string>
+    <string name="label_job_tech">Environnement technique</string>
 </resources>
