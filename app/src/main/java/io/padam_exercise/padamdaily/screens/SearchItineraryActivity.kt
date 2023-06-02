@@ -1,7 +1,6 @@
 package io.padam_exercise.padamdaily.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,25 +8,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.squareup.moshi.Moshi
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.mocking.MockSuggestion
 import io.padam_exercise.padamdaily.models.Suggestion
-import io.padam_exercise.padamdaily.network.GoogleMapApi
 import io.padam_exercise.padamdaily.utils.Toolbox
 import io.padam_exercise.padamdaily.viewmodel.SearchItineraryViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import padam_exercise.padamdaily.BuildConfig
 import padam_exercise.padamdaily.R
 import padam_exercise.padamdaily.databinding.ActivitySearchItineraryBinding
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -48,8 +36,11 @@ class SearchItineraryActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.itineraryFlow.collect { directionResponse ->
-                    directionResponse?.let { directionResponse ->
+                viewModel.itineraryFlow.collect { response ->
+                    response?.let { response ->
+                        val directionResponse = response.first
+                        val origin = response.second
+                        val destination = response.third
                         if (directionResponse.routes.isNullOrEmpty()) {
                             Toast.makeText(this@SearchItineraryActivity, R.string.no_itinerary, Toast.LENGTH_LONG).show()
                             return@collect
@@ -57,7 +48,7 @@ class SearchItineraryActivity : AppCompatActivity() {
                         directionResponse.routes.firstOrNull()?.let { firstRoute ->
                             val duration = firstRoute.getDuration()
                             if (duration > 0L.seconds) {
-                                displayDialog(duration)
+                                displayDialog(duration, origin, destination)
                                 mMapDelegate?.drawItinerary(directionResponse)
                             }
                         }
@@ -67,10 +58,10 @@ class SearchItineraryActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayDialog(duration: Duration) {
+    private fun displayDialog(duration: Duration, origin: Suggestion, destination: Suggestion) {
         var fragment = supportFragmentManager.findFragmentByTag(ItineraryBottomSheetDialogFragment.TAG) as DialogFragment?
         if (fragment == null) {
-            fragment = ItineraryBottomSheetDialogFragment.newInstance(duration)
+            fragment = ItineraryBottomSheetDialogFragment.newInstance(duration, origin.latLng, destination.latLng)
         }
         if (!fragment.isAdded) {
             fragment.show(supportFragmentManager, ItineraryBottomSheetDialogFragment.TAG)

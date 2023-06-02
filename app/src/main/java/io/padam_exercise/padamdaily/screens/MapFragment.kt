@@ -39,18 +39,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
             }
             val bounds = builder.build()
             animateMapCamera(bounds)
-            drawItinerary(*latLngArgs)
         }
-    }
-
-    private fun drawItinerary(vararg latLngArgs: LatLng?) {
-        // If there is 0 or 1 position, we can not perform an itinerary
-        if (latLngArgs.size < 2) {
-            return
-        }
-        if (mMap == null) return
-
-
     }
 
     override fun updateMarker(markerType: MarkerType, suggestion: Suggestion) {

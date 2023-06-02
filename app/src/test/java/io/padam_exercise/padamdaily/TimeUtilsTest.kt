@@ -1,6 +1,6 @@
 package io.padam_exercise.padamdaily
 
-import io.padam_exercise.padamdaily.TimeUtils.displayHoursAndMinutes
+import io.padam_exercise.padamdaily.Utils.displayHoursAndMinutes
 import org.junit.Assert
 import org.junit.Test
 import kotlin.time.Duration.Companion.minutes

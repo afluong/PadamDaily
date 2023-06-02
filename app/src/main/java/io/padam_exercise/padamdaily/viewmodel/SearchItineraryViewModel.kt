@@ -23,8 +23,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class SearchItineraryViewModel: ViewModel() {
 
-    private val _itineraryFlow = MutableStateFlow(null as DirectionResponse?)
-    internal val itineraryFlow: StateFlow<DirectionResponse?>
+    private val _itineraryFlow = MutableStateFlow(null as Triple<DirectionResponse, Suggestion, Suggestion>?)
+    internal val itineraryFlow: StateFlow<Triple<DirectionResponse, Suggestion, Suggestion>?>
         get() = _itineraryFlow
 
 
@@ -32,7 +32,7 @@ class SearchItineraryViewModel: ViewModel() {
         viewModelScope.launch {
             itineraryFlow(apiKey, suggestionDeparture, suggestionArrival)
                 .collect {
-                    _itineraryFlow.emit(it)
+                    _itineraryFlow.emit(Triple(it, suggestionDeparture, suggestionArrival))
            }
         }
 
