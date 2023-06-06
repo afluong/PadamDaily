@@ -1,0 +1,23 @@
+# Gradle files
+.gradle/
+build/
+
+# generated files
+bin/
+gen/
+
+# configuration
+local.properties
+
+# Android Studio
+.idea/
+*.iml
+
+# crash log files
+hs_err_pid*
+
+# version control
+vcs.xml
+
+# log files
+*.log
