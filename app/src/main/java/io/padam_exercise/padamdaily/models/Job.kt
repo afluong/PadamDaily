@@ -6,7 +6,7 @@ class Job(
     private var job_missions: String,
     private var job_tech: String
 ) {
-    fun getJobTitle() : String {
+    fun getJobTitle(): String {
         return job_title
     }
 
@@ -14,11 +14,11 @@ class Job(
         return job_desc
     }
 
-    fun getJobMissions() : String {
+    fun getJobMissions(): String {
         return job_missions
     }
 
-    fun getJobTech() : String {
+    fun getJobTech(): String {
         return job_tech
     }
 }

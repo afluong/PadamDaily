@@ -4,10 +4,10 @@
     android:id="@+id/cv_job"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_margin="@dimen/large_margin"
     card_view:cardBackgroundColor="@color/colorPrimary"
-    card_view:cardCornerRadius="10dp"
-    card_view:contentPadding="15dp">
+    card_view:cardCornerRadius="@dimen/corner_radius"
+    card_view:contentPadding="@dimen/large_padding">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="@dimen/default_padding"
             android:textColor="@color/colorBackground"
             android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
@@ -29,10 +29,10 @@
             android:id="@+id/tv_job_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/default_margin"
             android:background="@color/design_default_color_background"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:padding="@dimen/default_padding"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_job_title" />
 
@@ -53,7 +53,7 @@
             android:layout_marginTop="@dimen/default_margin"
             android:background="@color/design_default_color_background"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:padding="@dimen/default_padding"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_label_missions" />
 
@@ -74,7 +74,7 @@
             android:layout_marginTop="@dimen/default_margin"
             android:background="@color/design_default_color_background"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:padding="@dimen/default_padding"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_label_tech" />
 

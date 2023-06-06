@@ -36,14 +36,43 @@ class ResumeFragment : Fragment() {
 
         val jobRV = view.findViewById<RecyclerView>(R.id.rv_experiences)
         val jobArrayList: ArrayList<Job> = ArrayList()
-        jobArrayList.add(Job(getString(R.string.job1_title), getString(R.string.job1_desc), getString(R.string.job1_missions), getString(R.string.job1_tech)))
-        jobArrayList.add(Job(getString(R.string.job2_title), getString(R.string.job2_desc), getString(R.string.job2_missions), getString(R.string.job2_tech)))
-        jobArrayList.add(Job(getString(R.string.job3_title), getString(R.string.job3_desc), getString(R.string.job3_missions), getString(R.string.job3_tech)))
-        jobArrayList.add(Job(getString(R.string.job4_title), getString(R.string.job4_desc), getString(R.string.job4_missions), getString(R.string.job4_tech)))
+        jobArrayList.add(
+            Job(
+                getString(R.string.job1_title),
+                getString(R.string.job1_desc),
+                getString(R.string.job1_missions),
+                getString(R.string.job1_tech)
+            )
+        )
+        jobArrayList.add(
+            Job(
+                getString(R.string.job2_title),
+                getString(R.string.job2_desc),
+                getString(R.string.job2_missions),
+                getString(R.string.job2_tech)
+            )
+        )
+        jobArrayList.add(
+            Job(
+                getString(R.string.job3_title),
+                getString(R.string.job3_desc),
+                getString(R.string.job3_missions),
+                getString(R.string.job3_tech)
+            )
+        )
+        jobArrayList.add(
+            Job(
+                getString(R.string.job4_title),
+                getString(R.string.job4_desc),
+                getString(R.string.job4_missions),
+                getString(R.string.job4_tech)
+            )
+        )
 
         val jobAdapter = JobAdapter(requireContext(), jobArrayList)
 
-        val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         jobRV.layoutManager = linearLayoutManager
         jobRV.adapter = jobAdapter

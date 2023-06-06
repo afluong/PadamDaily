@@ -24,14 +24,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater : MenuInflater = menuInflater
+        val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController : NavController = navHostFragment.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
 
         // Handle item selection
         return when (item.itemId) {
@@ -39,14 +40,17 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.SearchItineraryFragment)
                 true
             }
+
             R.id.action_resume -> {
                 navController.navigate(R.id.ResumeFragment)
                 true
             }
+
             R.id.action_compose_resume -> {
                 navController.navigate(R.id.composeFragment)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

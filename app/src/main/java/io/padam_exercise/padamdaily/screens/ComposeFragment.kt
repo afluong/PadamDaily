@@ -117,7 +117,6 @@ class ComposeFragment : Fragment() {
                 contentDescription = "Android logo",
                 modifier = Modifier
                     .size(60.dp)
-
             )
             Text(
                 text = stringResource(R.string.resume_name),
@@ -134,7 +133,7 @@ class ComposeFragment : Fragment() {
         Box(
             modifier = Modifier
                 .padding(dimensionResource(R.dimen.default_padding))
-                .clip(RoundedCornerShape(10.dp))
+                .clip(RoundedCornerShape(dimensionResource(R.dimen.corner_radius)))
                 .background(colorResource(R.color.colorPrimary))
                 .padding(dimensionResource(R.dimen.default_padding))
         ) {
