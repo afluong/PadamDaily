@@ -12,6 +12,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import io.padam_exercise.padamdaily.models.MarkerType
 import io.padam_exercise.padamdaily.models.Suggestion
 import padam_exercise.padamdaily.R
@@ -30,11 +31,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
 
     override fun updateMap(vararg latLngArgs: LatLng?) {
         mMap?.let {
+            val itinerary = PolylineOptions()
             val builder = LatLngBounds.Builder()
+
             for (latLngArg in latLngArgs) {
                 builder.include(latLngArg!!)
+                itinerary.add(latLngArg)
             }
             val bounds = builder.build()
+            it.addPolyline(itinerary)
             animateMapCamera(bounds)
         }
     }
@@ -73,7 +78,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, MapActionsDelegate {
         mMap?.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(47.902964, 1.9092510000000402),
-                16f
+                4f
             )
         )
     }

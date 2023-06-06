@@ -5,4 +5,7 @@
 
     <dimen name="default_padding">10dp</dimen>
     <dimen name="large_padding">16dp</dimen>
+
+    <dimen name="default_header">25sp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
 </resources>
