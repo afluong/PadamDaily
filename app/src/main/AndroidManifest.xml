@@ -24,7 +24,7 @@
         <!-- new maps sdk api key stored safely in local.properties -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyBeoVro4CB4E73cjOzlz46Q4VR4hh21Vlg" />
     </application>
 
 </manifest>
