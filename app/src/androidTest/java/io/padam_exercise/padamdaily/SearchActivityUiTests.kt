@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.padam_exercise.padamdaily.screens.SearchItineraryActivity
-import io.padam_exercise.padamdaily.R
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
