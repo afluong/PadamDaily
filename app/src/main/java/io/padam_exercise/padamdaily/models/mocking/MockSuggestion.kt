@@ -3,6 +3,7 @@ package io.padam_exercise.padamdaily.models.mocking
 import com.google.android.gms.maps.model.LatLng
 import io.padam_exercise.padamdaily.models.Suggestion
 
+
 class MockSuggestion {
 
     companion object {
@@ -16,7 +17,9 @@ class MockSuggestion {
         }
 
         fun arrivals(): ArrayList<Suggestion> {
-            val venezia = Suggestion("Venezia", LatLng(45.4371908, 12.3345898))
+            //modified venezia longitude due to itinerary problem, marker was place on water
+            //maybe I should use city names as parameters of the api request to avoid this type of problem
+            val venezia = Suggestion("Venezia", LatLng(45.4371908, 12.327145))
             val london = Suggestion("London", LatLng(51.5073219, -0.1276474))
             val surrey = Suggestion("Surrey", LatLng(51.2715316, -0.3414524))
             val hannover = Suggestion("Hannover", LatLng(52.3744779, 9.7385532))
@@ -25,3 +28,4 @@ class MockSuggestion {
         }
     }
 }
+
