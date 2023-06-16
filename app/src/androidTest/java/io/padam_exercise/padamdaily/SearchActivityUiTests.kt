@@ -10,10 +10,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.padam_exercise.padamdaily.screens.SearchItineraryActivity
+import io.padam_exercise.padamdaily.R
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -24,15 +26,23 @@ import org.junit.runner.RunWith
 class SearchActivityUiTests {
 
     @Before
-
     fun setUp(){
         ActivityScenario.launch(SearchItineraryActivity::class.java)
     }
 
 
     @Test
-    fun checkArrivalSpinnerDisplaysArrivalListItems(){
-        onView(withId(padam_exercise.padamdaily.R.id.spinner_arrival)).perform(click())
+
+    fun checkDepartureSpinnerDisplaysOriginCityNames(){
+        onView(withId(R.id.spinner_departure)).perform(click())
+        onView(withText("Paris")).check(matches(isDisplayed()))
+        onView(withText("Orléans")).check(matches(isDisplayed()))
+        onView(withText("Lille")).check(matches(isDisplayed()))
+        onView(withText("Strasbourg")).check(matches(isDisplayed()))
+    }
+    @Test
+    fun checkArrivalSpinnerDisplaysDestinationNames(){
+        onView(withId(R.id.spinner_arrival)).perform(click())
         onView(withText("Venezia")).check(matches(isDisplayed()))
         onView(withText("London")).check(matches(isDisplayed()))
         onView(withText("Surrey")).check(matches(isDisplayed()))
@@ -45,10 +55,11 @@ class SearchActivityUiTests {
         onView(withText("Arrival")).check(matches(isDisplayed()))
     }
 
+    //modification : typo error lead to test error exercice should be exercise
     @Test
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("io.padam_exercice.padamdaily", appContext.packageName)
+        assertEquals("io.padam_exercise.padamdaily", appContext.packageName)
     }
 }
